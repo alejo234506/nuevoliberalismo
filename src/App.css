@@ -1,0 +1,190 @@
+:root {
+  --bg: #f9fafb;
+  --panel: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #eb2525;
+  --primary-dark: #c81e1e;
+  --primary-soft: #fee2e2;
+  --secondary: #b91010;
+  --danger: #ef4444;
+  --border: #e5e7eb;
+  --shadow-lg: 0 12px 36px rgba(0,0,0,.25);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Contenedor base */
+.container {
+  width: min(1100px, 95%);
+  margin: 24px auto;
+  padding: 0 12px;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+}
+.brand { font-weight: bold; font-size: 18px; }
+
+/* CARD */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  margin-top: 20px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.tools { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* FORMS */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+.input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+.input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(235, 37, 37, .25);
+}
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .2s, transform .02s;
+}
+.btn:hover { background: var(--primary-dark); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { background: #fca5a5; cursor: not-allowed; }
+.btn.danger { background: var(--danger); }
+.btn.danger:hover { background: #dc2626; }
+
+/* TABLE */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th, .table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.table th {
+  background: #fef2f2; /* tinte rojo suave */
+  color: #7f1d1d;
+  text-align: left;
+}
+.table tbody tr:hover { background: #fff7f7; }
+
+/* BADGES / TEXTOS */
+.badge { padding: 4px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge.primary { background: var(--primary-soft); color: #b91c1c; }
+.badge.secondary { background: #d1fae5; color: #047857; }
+.hint { color: var(--muted); margin-top: 10px; font-size: 14px; }
+.hint.error { color: var(--danger); }
+
+/* =============================================
+   ✨ SECCIÓN HERO CON SLIDESHOW MEJORADO (3 imágenes)
+   ============================================= */
+.hero {
+  position: relative;
+  min-height: 100vh;                /* ocupa toda la pantalla */
+  display: grid;
+  place-items: center;              /* centrado perfecto */
+  padding: 32px 16px;
+  overflow: hidden;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.1);
+  animation: kenburns-crossfade 21s infinite ease-in-out; /* 7s por imagen */
+}
+
+.hero__slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to bottom right, rgba(0,0,0,.6), rgba(0,0,0,.3));
+  z-index: 1;
+}
+
+.hero__slide--s1 {
+  background-image: url("./assets/nuevoliberalismo1.jpg");
+  animation-delay: 0s;
+}
+.hero__slide--s2 {
+  background-image: url("./assets/nuevoliberalismo2.jpg");
+  animation-delay: 7s;
+}
+.hero__slide--s3 {
+  background-image: url("./assets/nuevoliberalismo3.jpg");
+  animation-delay: 14s;
+}
+
+@keyframes kenburns-crossfade {
+  0%          { opacity: 0;   transform: scale(1.1); }
+  5%, 33.3%   { opacity: 1;   transform: scale(1);   }
+  38.3%, 100% { opacity: 0;   transform: scale(1);   }
+}
+
+/* Tarjeta "glass" sobre el slideshow */
+.card--glass {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  width: 100%;
+  margin-top: 0; /* centrado perfecto */
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-lg);
+}
+
+/* En móviles, evita saltos de rendimiento */
+@media (max-width: 768px) {
+  .hero__slide { background-attachment: scroll; }
+  .card--glass {
+    backdrop-filter: blur(8px) saturate(110%);
+    -webkit-backdrop-filter: blur(8px) saturate(110%);
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+}
